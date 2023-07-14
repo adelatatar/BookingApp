@@ -1,0 +1,18 @@
+.homePage {
+    overflow: hidden;
+}
+.homeLogo {
+}
+
+.textContainer {
+    width: 100%;
+    position: absolute;
+    top: 20%
+}
+
+.imageText {
+    text-align: center;
+    font-family: 'Lucida Handwriting';
+    color: #000;
+    font-size: 50px;
+}
