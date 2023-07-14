@@ -1,0 +1,43 @@
+.mainContainer {
+    overflow: hidden;
+    justify-content: center;
+}
+
+.formText {
+    margin-top: 8%;
+    text-align: center;
+}
+
+.addNewPropertyForm {
+    margin-top: 2%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.addNewPropertyForm input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.checkbox {
+    display:  inline-flex;
+    margin-right: 10%;
+}
+
+.checkbox input {
+    margin-right: 8%;
+}
+
+.newPropertyButton {
+    background-color: #04AA6D;
+    text-align: center;
+    margin-top: 5%;
+    width: 100%;
+    height: 40px;
+}
