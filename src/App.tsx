@@ -18,6 +18,7 @@ function App() {
                         <Route path='/properties' element={<Properties/>}/>
                         <Route path='/newProperty' element={<NewProperty/>}/>
                         <Route path='/seeProperty/:id' element={<ViewPropertyPage/>}/>
+                        <Route path='*' element={<Home/>}/>
                     </Routes>
                 </Layout>
             </Router>

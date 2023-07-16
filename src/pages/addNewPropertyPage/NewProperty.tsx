@@ -1,16 +1,14 @@
 import React, {useState} from "react";
 import './NewProperty.css'
 import HeaderComponent from "../../components/headerComponent/HeaderComponent";
+import properties from "../../consts/data";
+import PropertyType from "../../types/PropertyType";
 
 function NewProperty() {
-    interface newDataType {
-        name:string,
-        description: string,
-        price: string,
-        location: string
-    }
-
-    const [formData, setFormData] = useState<newDataType>({
+    const [formData, setFormData] = useState<PropertyType>({
+        id: properties[properties.length - 1].id + 1,
+        image: "",
+        rate: "",
         name:"",
         description: "",
         price: "",
@@ -23,7 +21,9 @@ function NewProperty() {
 
     const handleSubmit = (event : React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log(formData)
+        debugger
+        console.log(formData);
+        properties.push(formData);
     }
 
     return (
