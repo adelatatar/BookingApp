@@ -1,7 +1,9 @@
 .homePage {
-    overflow: hidden;
+
 }
-.homeLogo {
+
+.logoImage {
+    max-width: 100%;
 }
 
 .textContainer {

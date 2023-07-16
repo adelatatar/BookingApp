@@ -1,0 +1,21 @@
+.propertyDetails {
+    margin-top: 5%;
+    margin-left: 2%;
+}
+
+.reviewSection {
+    margin-top: 2%;
+    margin-left: 2%;
+}
+
+.commentSection {
+    width: 40%;
+    height: 60px;
+    margin-top: 2%;
+}
+
+.submitButton {
+    margin-top: 2%;
+    width: 20%;
+    height: 30px;
+}
