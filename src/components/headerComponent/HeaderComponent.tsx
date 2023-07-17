@@ -6,12 +6,11 @@ import MenuComponent from "../menuComponent/MenuComponent";
 function HeaderComponent() {
     return (
         <nav className="navbar">
-            <div>
-                <img className="logo" src={siteLogo} alt="logo"/>
-                <MenuComponent/>
-            </div>
+            <img className="logo" src={siteLogo} alt="logo"/>
+            <MenuComponent/>
         </nav>
 
     );
 }
+
 export default HeaderComponent;

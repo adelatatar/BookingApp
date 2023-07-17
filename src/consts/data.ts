@@ -3,7 +3,7 @@ import PropertyType from "../types/PropertyType";
 const properties: PropertyType[] = [
     {
         id: 1,
-        image: "../../assets/villaDomina.jpg",
+        image: "images/villaDomina.jpg",
         name: "Villa Domina",
         location: "Croatia, Split",
         rate:"4.8",
@@ -12,11 +12,12 @@ const properties: PropertyType[] = [
             "\n" +
             "The villa comes with a satellite TV. The kitchen is fitted with a fridge, a dishwasher and an oven, as well as coffee machine.\n" +
             "\n" +
-            "Jaz Beach is 2.6 km from the villa, while Queen's Beach is 3 km away. The nearest airport is Zadar Airport, 26 km from Villa Dona."
+            "Jaz Beach is 2.6 km from the villa, while Queen's Beach is 3 km away. The nearest airport is Zadar Airport, 26 km from Villa Dona.",
+        type: "Pension"
     },
     {
         id: 2,
-        image: "",
+        image: "images/aparthotelStare.jpg",
         name: "Aparthotel Stare Miasto",
         location: "Poland, Krakow",
         rate:"4.7",
@@ -25,11 +26,12 @@ const properties: PropertyType[] = [
             "\n" +
             "The villa comes with a satellite TV. The kitchen is fitted with a fridge, a dishwasher and an oven, as well as coffee machine.\n" +
             "\n" +
-            "Jaz Beach is 2.6 km from the villa, while Queen's Beach is 3 km away. The nearest airport is Zadar Airport, 26 km from Villa Dona."
+            "Jaz Beach is 2.6 km from the villa, while Queen's Beach is 3 km away. The nearest airport is Zadar Airport, 26 km from Villa Dona.",
+        type:"Pension"
     },
     {
         id: 3,
-        image: "",
+        image: "images/hotelConfort.jfif",
         name: "Hotel Confort",
         location: "Cluj-Napoca, Romania",
         rate:"4.9",
@@ -38,11 +40,12 @@ const properties: PropertyType[] = [
             "\n" +
             "The villa comes with a satellite TV. The kitchen is fitted with a fridge, a dishwasher and an oven, as well as coffee machine.\n" +
             "\n" +
-            "Jaz Beach is 2.6 km from the villa, while Queen's Beach is 3 km away. The nearest airport is Zadar Airport, 26 km from Villa Dona."
+            "Jaz Beach is 2.6 km from the villa, while Queen's Beach is 3 km away. The nearest airport is Zadar Airport, 26 km from Villa Dona.",
+        type:"Hotel"
     },
     {
         id: 4,
-        image: "",
+        image: "images/hotelPlaza.jpg",
         name: "Hotel Plaza",
         location: "Italy, Rome",
         rate:"5",
@@ -51,11 +54,12 @@ const properties: PropertyType[] = [
             "\n" +
             "The villa comes with a satellite TV. The kitchen is fitted with a fridge, a dishwasher and an oven, as well as coffee machine.\n" +
             "\n" +
-            "Jaz Beach is 2.6 km from the villa, while Queen's Beach is 3 km away. The nearest airport is Zadar Airport, 26 km from Villa Dona."
+            "Jaz Beach is 2.6 km from the villa, while Queen's Beach is 3 km away. The nearest airport is Zadar Airport, 26 km from Villa Dona.",
+        type:"Hotel"
     },
     {
         id: 5,
-        image: "",
+        image: "images/hotelPalace.jpg",
         name: "Hotel Palace",
         location: "Italy, Palermo",
         rate:"4.8",
@@ -64,7 +68,8 @@ const properties: PropertyType[] = [
             "\n" +
             "The villa comes with a satellite TV. The kitchen is fitted with a fridge, a dishwasher and an oven, as well as coffee machine.\n" +
             "\n" +
-            "Jaz Beach is 2.6 km from the villa, while Queen's Beach is 3 km away. The nearest airport is Zadar Airport, 26 km from Villa Dona."
+            "Jaz Beach is 2.6 km from the villa, while Queen's Beach is 3 km away. The nearest airport is Zadar Airport, 26 km from Villa Dona.",
+        type:"Hotel"
     }
 ];
 

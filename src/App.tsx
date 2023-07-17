@@ -7,21 +7,22 @@ import Properties from "./pages/propertiesPage/Properties";
 import NewProperty from "./pages/addNewPropertyPage/NewProperty";
 import ViewPropertyPage from "./pages/viewPropertyPage/ViewPropertyPage";
 import Layout from "./layouts/Layout";
+import 'bootstrap/dist/css/bootstrap.css'
 
 function App() {
     return (
-            <Router>
-                <Layout>
-                    <Routes>
-                        <Route path='/' element={<Home/>}/>
-                        <Route path='/contact' element={<Contact/>}/>
-                        <Route path='/properties' element={<Properties/>}/>
-                        <Route path='/newProperty' element={<NewProperty/>}/>
-                        <Route path='/seeProperty/:id' element={<ViewPropertyPage/>}/>
-                        <Route path='*' element={<Home/>}/>
-                    </Routes>
-                </Layout>
-            </Router>
+        <Router>
+            <Layout>
+                <Routes>
+                    <Route path='/' element={<Home/>}/>
+                    <Route path='/contact' element={<Contact/>}/>
+                    <Route path='/properties' element={<Properties/>}/>
+                    <Route path='/newProperty' element={<NewProperty/>}/>
+                    <Route path='/seeProperty/:id' element={<ViewPropertyPage/>}/>
+                    <Route path='*' element={<Home/>}/>
+                </Routes>
+            </Layout>
+        </Router>
     );
 }
 

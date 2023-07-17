@@ -12,7 +12,8 @@ function NewProperty() {
         name:"",
         description: "",
         price: "",
-        location: ""
+        location: "",
+        type: ""
     })
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +29,6 @@ function NewProperty() {
 
     return (
         <main className="mainContainer">
-            <HeaderComponent/>
             <div className="formText">
                 <h1>Complete the next fields to add a new property:</h1>
             </div>

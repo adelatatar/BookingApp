@@ -6,4 +6,5 @@ export default interface PropertyType {
     rate: string,
     price: string
     description: string
+    type: string
 }

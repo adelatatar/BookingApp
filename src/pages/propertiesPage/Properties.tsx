@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import HeaderComponent from "../../components/headerComponent/HeaderComponent";
 import SearchBar from "../../components/searchBarComponent/SearchBar";
 import './Properties.css'
 import PropertyType from "../../types/PropertyType";
@@ -13,7 +12,7 @@ function Properties() {
         if (searchedName !== '') {
             const results = properties.filter((property: PropertyType)=>{
                 return (
-                    // property.image &&
+                    property.image &&
                     property.name &&
                     property.location &&
                     property.rate &&
@@ -26,10 +25,10 @@ function Properties() {
         }
     };
 
-    const deleteProperty = (propertyIndex:number) => {
+    const deleteProperty = (propertyId:number) => {
         let results = [...searchedResults];
         results = results.filter(
-            (item, index) => propertyIndex !== index
+            (property) => propertyId !== property.id
         );
         setSearchedResults(results);
     }
@@ -42,17 +41,18 @@ function Properties() {
     return (
         <main className="mainContainer">
             <SearchBar onSearchChange = {onSearchChange}/>
-            <table className="propertiesTable">
-                {searchedResults.map((content, propertyIndex) => {
+            <table className="table table-bordered">
+                {searchedResults.map((property, propertyIndex) => {
                     return (
-                      <tr key = {content.id}>
-                          <td><img src={content.image} height="150" width="150"/></td>
-                          <td>{content.name}</td>
-                          <td>{content.location}</td>
-                          <td>{content.rate}</td>
-                          <td>{content.price}</td>
-                          <td><button className="deleteButton" onClick={() => deleteProperty(propertyIndex) }>Delete Property</button></td>
-                          <td><button className="seePropertyButton" onClick={() => navigateToSeeThePage(content.id) }>See the Property</button></td>
+                      <tr key = {property.id}>
+                          <td><img src={property.image} height="150" width="150"/></td>
+                          <td>{property.name}</td>
+                          <td>{property.location}</td>
+                          <td>Rate: {property.rate}</td>
+                          <td>{property.price}</td>
+                          <td>Type: {property.type}</td>
+                          <td><button className="btn btn-outline-dark" onClick={() => deleteProperty(property.id) }>Delete Property</button></td>
+                          <td><button className="btn btn-dark" onClick={() => navigateToSeeThePage(property.id) }>See the Property</button></td>
                       </tr>
                     );
                 })}
