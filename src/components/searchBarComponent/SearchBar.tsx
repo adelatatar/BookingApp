@@ -8,6 +8,7 @@ interface SearchBarProps {
 
 function SearchBar({onSearchChange}: SearchBarProps) {
     const [searchedTerm, setSearchedTerm] = useState("");
+
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setSearchedTerm(e.target.value);
         onSearchChange(e.target.value);

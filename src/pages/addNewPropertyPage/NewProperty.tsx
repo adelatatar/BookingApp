@@ -6,14 +6,13 @@ import PropertyType from "../../types/PropertyType";
 
 function NewProperty() {
     const [formData, setFormData] = useState<PropertyType>({
-        id: properties[properties.length - 1].id + 1,
-        image: "",
-        rate: "",
+        review: 0,
         name:"",
         description: "",
-        price: "",
-        location: "",
-        type: ""
+        price: 0,
+        town: "",
+        type: "",
+        remarks: []
     })
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,11 +54,11 @@ function NewProperty() {
                     </label> <br/>
                     <label className="checkbox">
                         <input type="checkbox"/>
-                        <span>{"Hotel"}</span>
+                        <span>{"HOTEL"}</span>
                     </label>
                     <label className="checkbox">
                         <input type="checkbox" />
-                        <span>{"Pension"}</span>
+                        <span>{"PENSION"}</span>
                     </label>
                     <button type="submit" className="newPropertyButton">Add Property</button>
                 </form>

@@ -1,63 +1,83 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import SearchBar from "../../components/searchBarComponent/SearchBar";
-import './Properties.css'
 import PropertyType from "../../types/PropertyType";
 import {useNavigate} from "react-router-dom";
-import properties from "../../consts/data";
+import axios, {CanceledError} from "axios";
+import DropDownButton from "../../components/dropDownButton/DropDownButton";
 
 function Properties() {
-    const [searchedResults, setSearchedResults] = useState<PropertyType[]>(properties);
+    const [properties, setProperties] = useState<PropertyType[]>([]);
+    const [error, setError] = useState("");
+    const [selectedTown, setSelectedTown] = useState<string | null>()
+
+    useEffect(() => {
+        const controller = new AbortController();
+        axios
+            .get<PropertyType[]>('http://192.168.123.25:9039/accommodation-units', {signal: controller.signal})
+            .then(res => setProperties(res.data))
+            .catch(err => {
+                if(err instanceof CanceledError) return;
+                setError(err);
+            });
+
+        return () => controller.abort();
+        }, [])
 
     const onSearchChange = (searchedName: string) => {
+        const originalProperties = [...properties];
         if (searchedName !== '') {
-            const results = properties.filter((property: PropertyType)=>{
-                return (
-                    property.image &&
-                    property.name &&
-                    property.location &&
-                    property.rate &&
-                    property.price &&
-                    property.name.toLocaleLowerCase().includes(searchedName));
-            });
-            setSearchedResults(results);
+            setProperties(properties.filter(p => p.name.toLocaleLowerCase().includes(searchedName)));
         } else {
-            setSearchedResults(properties);
+            setProperties(originalProperties);
         }
     };
 
-    const deleteProperty = (propertyId:number) => {
-        let results = [...searchedResults];
-        results = results.filter(
-            (property) => propertyId !== property.id
-        );
-        setSearchedResults(results);
+    const deleteProperty = (property: PropertyType) => {
+        const originalProperties = [...properties];
+        setProperties(properties.filter(p => p.name !== property.name))
+
+        axios.delete('http://192.168.123.25:9039/accommodation-units?name='+ property.name)
+            .catch(err => {
+                setError(err.message);
+                setProperties(originalProperties);
+            })
     }
 
     const navigate = useNavigate();
-    const navigateToSeeThePage = (propertyId: number) => {
-        navigate(`/seeProperty/${propertyId}`);
+    const navigateToSeeThePage = (property: PropertyType) => {
+        navigate(`/seeProperty/${property.name}`);
     };
 
+    const onSelectTown = (town:string | null) => {
+
+    }
+
     return (
-        <main className="mainContainer">
+        <>
             <SearchBar onSearchChange = {onSearchChange}/>
-            <table className="table table-bordered">
-                {searchedResults.map((property, propertyIndex) => {
-                    return (
-                      <tr key = {property.id}>
-                          <td><img src={property.image} height="150" width="150"/></td>
-                          <td>{property.name}</td>
-                          <td>{property.location}</td>
-                          <td>Rate: {property.rate}</td>
-                          <td>{property.price}</td>
-                          <td>Type: {property.type}</td>
-                          <td><button className="btn btn-outline-dark" onClick={() => deleteProperty(property.id) }>Delete Property</button></td>
-                          <td><button className="btn btn-dark" onClick={() => navigateToSeeThePage(property.id) }>See the Property</button></td>
-                      </tr>
-                    );
-                })}
+            {error && <p className="text-danger">{error}</p>}
+            <DropDownButton />
+            <table className="table table-bordered" style={{
+                marginLeft: "2%",
+                marginRight: "2%"
+            }}>
+                <tbody>
+                    {properties.map((property) => {
+                        return (
+                            <tr key = {property.name}>
+                                <td>{property.name}</td>
+                                <td>{property.town}</td>
+                                <td>Rate: {property.review}</td>
+                                <td>{property.price}</td>
+                                <td>Type: {property.type}</td>
+                                <td><button className="btn btn-outline-dark" onClick={() => deleteProperty(property) }>Delete Property</button></td>
+                                <td><button className="btn btn-outline-dark" onClick={() => navigateToSeeThePage(property) }>See the Property</button></td>
+                            </tr>
+                        );
+                    })}
+                </tbody>
             </table>
-        </main>
+        </>
     );
 }
 

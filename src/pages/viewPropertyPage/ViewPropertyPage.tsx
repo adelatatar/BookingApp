@@ -1,24 +1,30 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import './ViewPropertyPage.css'
 import {useParams} from "react-router-dom";
-import properties from "../../consts/data";
 import Rating from '@mui/material/Rating';
 import ExpandableTextField from "../../components/expandableTextField/ExpandableTextField";
+import PropertyType from "../../types/PropertyType";
+import axios from "axios";
 
 function ViewPropertyPage() {
     const params = useParams();
-    const [propertyId, setPropertyId] = useState(params.id ? parseInt(params.id) : null);
+    const [propertyName, setPropertyId] = useState(params.name ? params.name : null);
     const [value, setValue] = React.useState<number | null>(4);
-    const foundProperty = properties.find((property) => property.id === propertyId);
+    const [foundProperty, setFoundProperty] = useState<PropertyType>();
+
+    useEffect(() => {
+        axios
+            .get<PropertyType[]>(`http://192.168.123.25:9039/accommodation-units?name=${propertyName}`)
+            .then(res => setFoundProperty(res.data[0]))
+    }, [])
 
      return (
          <div className="mainContainer">
              <div className = "propertyDetails" >
                  <h1>{foundProperty?.name}</h1>
-                 <h6> Location: {foundProperty?.location} </h6>
+                 <h6> Location: {foundProperty?.town} </h6>
                  <h5> Price: {foundProperty?.price}</h5>
-                 <h5> Rate: {foundProperty?.rate}</h5>
-                 <img src={foundProperty?.image} height="150" width="150"/>
+                 <h5> Rate: {foundProperty?.review}</h5>
                  <h5> Description Of The property: <ExpandableTextField>{foundProperty ? foundProperty.description : " "}</ExpandableTextField> </h5>
                  <h5> Comments: </h5>
              </div>

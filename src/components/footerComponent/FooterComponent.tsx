@@ -1,15 +1,15 @@
 import React from 'react'
-import './FooterComponent.css'
+import 'bootstrap/dist/css/bootstrap.css'
 
 function FooterComponent() {
     return (
-      <div className="footer">
-          <footer>
-              <p>Contact us</p>
-              <p>hege@example.com</p>
-              <p>Address: Florilor Street, No.22, Cluj-Napoca, Cluj, Romania</p>
-          </footer>
-      </div>
+        <footer className="page-footer font-monospace">
+            <div className="footer-copyright text-center py-3">
+                <p>Contact us</p>
+                <p>bookingApp@bookingApp.com</p>
+                <p>Address: Florilor Street, No.22, Cluj-Napoca, Cluj, Romania</p>
+            </div>
+        </footer>
     );
 }
 

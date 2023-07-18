@@ -18,7 +18,7 @@ function App() {
                     <Route path='/contact' element={<Contact/>}/>
                     <Route path='/properties' element={<Properties/>}/>
                     <Route path='/newProperty' element={<NewProperty/>}/>
-                    <Route path='/seeProperty/:id' element={<ViewPropertyPage/>}/>
+                    <Route path='/seeProperty/:name' element={<ViewPropertyPage />}/>
                     <Route path='*' element={<Home/>}/>
                 </Routes>
             </Layout>

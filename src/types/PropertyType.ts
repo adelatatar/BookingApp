@@ -1,10 +1,9 @@
 export default interface PropertyType {
-    id: number,
-    image: string,
     name: string,
-    location: string,
-    rate: string,
-    price: string
-    description: string
-    type: string
+    description: string,
+    price: number,
+    review: number,
+    type: string,
+    town: string,
+    remarks: string[]
 }
