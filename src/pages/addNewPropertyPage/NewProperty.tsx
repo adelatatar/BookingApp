@@ -1,8 +1,7 @@
 import React, {useState} from "react";
 import './NewProperty.css'
-import HeaderComponent from "../../components/headerComponent/HeaderComponent";
-import properties from "../../consts/data";
 import PropertyType from "../../types/PropertyType";
+import axios from "axios";
 
 function NewProperty() {
     const [formData, setFormData] = useState<PropertyType>({
@@ -21,9 +20,12 @@ function NewProperty() {
 
     const handleSubmit = (event : React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        debugger
-        console.log(formData);
-        properties.push(formData);
+        axios
+            .post('http://192.168.123.25:9039/accommodation-units', formData, {
+                headers: {
+                    'content-type' : 'application/json'
+                }
+            })
     }
 
     return (
@@ -47,18 +49,11 @@ function NewProperty() {
                     </label> <br/>
                     <label>
                         Location:
-                        <input onChange={handleChange} type="text" name="location" />
+                        <input onChange={handleChange} type="text" name="town" />
                     </label> <br/>
-                    <label>
-                        What is the type of the property?
-                    </label> <br/>
-                    <label className="checkbox">
-                        <input type="checkbox"/>
-                        <span>{"HOTEL"}</span>
-                    </label>
-                    <label className="checkbox">
-                        <input type="checkbox" />
-                        <span>{"PENSION"}</span>
+                    <label >
+                        Type (HOTEL/PENSION):
+                        <input onChange={handleChange} type="text" name="type" />
                     </label>
                     <button type="submit" className="newPropertyButton">Add Property</button>
                 </form>

@@ -6,7 +6,6 @@ interface Props {
 }
 function ExpandableTextField({children, maxChars = 50} : Props) {
     const [isExpanded, setIsExpanded] = useState(false);
-    const [buttonText, setButtonText] = useState("See the entire description");
 
     if (children.length <= maxChars) return <p>{children}</p>;
 

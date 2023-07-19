@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {FormEvent, useEffect, useRef, useState} from "react";
 import './ViewPropertyPage.css'
 import {useParams} from "react-router-dom";
 import Rating from '@mui/material/Rating';
@@ -8,15 +8,30 @@ import axios from "axios";
 
 function ViewPropertyPage() {
     const params = useParams();
-    const [propertyName, setPropertyId] = useState(params.name ? params.name : null);
-    const [value, setValue] = React.useState<number | null>(4);
+    const propertyName = params.name ? params.name : null;
+    const [reviewValue, setReviewValue] = React.useState<number | null>(0);
     const [foundProperty, setFoundProperty] = useState<PropertyType>();
+    const commRef = useRef<HTMLInputElement>(null);
+    const reviewRef = useRef<HTMLInputElement>(null);
+    const [comments, setComments] = useState<string[]>([]);
+    const [newReview, setNewReview] = useState<boolean>(false);
 
     useEffect(() => {
         axios
             .get<PropertyType[]>(`http://192.168.123.25:9039/accommodation-units?name=${propertyName}`)
-            .then(res => setFoundProperty(res.data[0]))
-    }, [])
+            .then(res => setFoundProperty(res.data[0]));
+    }, [newReview, propertyName])
+
+    ///accommodation-units?name=<current_name>&review=<1-5>&remarks=<[comments]>
+    const handleSubmit = (event: FormEvent) => {
+        event.preventDefault();
+        if(commRef.current !== null && reviewRef.current!=null) {
+            axios
+                .put(`http://192.168.123.25:9039/accommodation-units?name=${propertyName}&review=${reviewValue}&remarks=${comments}`)
+                .then();
+            setNewReview(!newReview);
+        }
+    }
 
      return (
          <div className="mainContainer">
@@ -27,19 +42,20 @@ function ViewPropertyPage() {
                  <h5> Rate: {foundProperty?.review}</h5>
                  <h5> Description Of The property: <ExpandableTextField>{foundProperty ? foundProperty.description : " "}</ExpandableTextField> </h5>
                  <h5> Comments: </h5>
+                 {foundProperty?.remarks.map(remark => <p>{remark}</p>)}
              </div>
-             <div className="reviewSection">
+             <form onSubmit={handleSubmit} className="reviewSection">
                  <h5> Do you want to leave a review? </h5>
-                 <Rating
+                 <Rating ref={reviewRef}
                      name="simple-controlled"
-                     value={value}
+                     value={reviewValue}
                      onChange={(event, newValue) => {
-                         setValue(newValue);
+                         setReviewValue(newValue);
                      }}
                  /> <br/>
-                 <textarea className="commentSection" placeholder="Leave a comment"/> <br/>
+                 <input onChange={(event) => setComments([event.target.value])} ref={commRef} id="comment" name="comment" className="commentSection" placeholder="Leave a comment"/> <br/>
                  <button className = "btn btn-light" type="submit">Submit</button>
-             </div>
+             </form>
 
          </div>
     );

@@ -1,18 +1,33 @@
 import {useEffect, useState} from 'react'
 import axios from "axios";
-import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
+import {FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
 
 type configs = {
     towns:string[]
 }
-function DropDownButton() {
+
+interface DropDownProps {
+    onSelectTown: (value: string) => any;
+}
+function DropDownButton({onSelectTown} : DropDownProps) {
     const [configData, setConfigData] = useState<configs>();
+    const [selectedTown, setSelectedTown] = useState<string>(localStorage.getItem("selectedTown") || "" );
 
     useEffect(() => {
         axios
             .get<configs>('http://192.168.123.25:9039/configs')
             .then(res => {setConfigData(res.data)})
+
     }, [])
+
+    useEffect(() => {
+        localStorage.setItem("selectedTown", selectedTown)
+    }, [selectedTown])
+
+    const handleChange = (event: SelectChangeEvent) => {
+        setSelectedTown(event.target.value as string);
+        onSelectTown(event.target.value as string);
+    };
 
     return(
         <FormControl sx = {{
@@ -25,8 +40,14 @@ function DropDownButton() {
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 label="Filter by Town"
-                value={configData}
+                value={selectedTown}
+                onChange = {handleChange}
             >
+                {
+                    <MenuItem value="">
+                        <em>None</em>
+                    </MenuItem>
+                }
                 {
                     configData?.towns.map(town => {
                         return (
