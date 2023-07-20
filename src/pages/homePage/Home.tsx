@@ -2,6 +2,10 @@ import React from 'react';
 import './Home.css';
 import homeLogo from '../../assets/homeImage.png'
 
+/**
+ * This is the home page and is only contains the header component, an image and a footer.
+ * @constructor
+ */
 function Home() {
     return (
         <div className="homePage">

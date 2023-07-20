@@ -2,6 +2,12 @@ import React from "react";
 import {useNavigate} from 'react-router-dom'
 import {Button} from "@mui/material";
 import './MenuComponent.css'
+
+/**
+ * This is the menu component that contains four buttons that redirect you to some other pages.
+ * I used it in the header component.
+ * @constructor
+ */
 function MenuComponent() {
     const navigate = useNavigate();
 

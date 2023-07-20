@@ -2,6 +2,9 @@ import React, {ChangeEvent, useState} from "react";
 import './SearchBar.css'
 import {TextField} from "@mui/material";
 
+/**
+ * This is a search bar component that filter the properties by name based on what words the user enters.
+ */
 interface SearchBarProps {
     onSearchChange: (value: string) => any;
 }

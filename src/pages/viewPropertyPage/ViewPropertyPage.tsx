@@ -4,8 +4,13 @@ import {useParams} from "react-router-dom";
 import Rating from '@mui/material/Rating';
 import ExpandableTextField from "../../components/expandableTextField/ExpandableTextField";
 import PropertyType from "../../types/PropertyType";
-import axios from "axios";
+import {CanceledError} from "axios";
+import {addReview, getProperty} from "../../services";
 
+/**
+ * This page is used to display all the details of a property.
+ * The user can add a review (comment + score).
+ */
 function ViewPropertyPage() {
     const params = useParams();
     const propertyName = params.name ? params.name : null;
@@ -13,23 +18,27 @@ function ViewPropertyPage() {
     const [foundProperty, setFoundProperty] = useState<PropertyType>();
     const commRef = useRef<HTMLInputElement>(null);
     const reviewRef = useRef<HTMLInputElement>(null);
-    const [comments, setComments] = useState<string[]>([]);
+    const [comment, setComment] = useState<string[]>([]);
     const [newReview, setNewReview] = useState<boolean>(false);
+    const [error, setError] = useState("");
 
     useEffect(() => {
-        axios
-            .get<PropertyType[]>(`http://192.168.123.25:9039/accommodation-units?name=${propertyName}`)
-            .then(res => setFoundProperty(res.data[0]));
+        getProperty(propertyName, (data:PropertyType[])=> {
+            setFoundProperty(data[0])
+        }, (err) => setError(err))
     }, [newReview, propertyName])
 
     ///accommodation-units?name=<current_name>&review=<1-5>&remarks=<[comments]>
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
         if(commRef.current !== null && reviewRef.current!=null) {
-            axios
-                .put(`http://192.168.123.25:9039/accommodation-units?name=${propertyName}&review=${reviewValue}&remarks=${comments}`)
-                .then();
-            setNewReview(!newReview);
+            addReview(propertyName, reviewValue, comment)
+                .then(() => {
+                    setNewReview(!newReview);
+                })
+                .catch(err => {
+                    setError(err.message);
+                })
         }
     }
 
@@ -46,6 +55,7 @@ function ViewPropertyPage() {
              </div>
              <form onSubmit={handleSubmit} className="reviewSection">
                  <h5> Do you want to leave a review? </h5>
+                 {error && <p className="text-danger">{error}</p>}
                  <Rating ref={reviewRef}
                      name="simple-controlled"
                      value={reviewValue}
@@ -53,7 +63,7 @@ function ViewPropertyPage() {
                          setReviewValue(newValue);
                      }}
                  /> <br/>
-                 <input onChange={(event) => setComments([event.target.value])} ref={commRef} id="comment" name="comment" className="commentSection" placeholder="Leave a comment"/> <br/>
+                 <input onChange={(event) => setComment([event.target.value])} ref={commRef} id="comment" name="comment" className="commentSection" placeholder="Leave a comment"/> <br/>
                  <button className = "btn btn-light" type="submit">Submit</button>
              </form>
 

@@ -1,6 +1,11 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 
+/**
+ * Here I have a footer component that appears in each page. It contains just contact details.
+ * @constructor
+ */
+
 function FooterComponent() {
     return (
         <footer className="page-footer font-monospace">

@@ -2,6 +2,10 @@ import {useEffect, useState} from 'react'
 import axios from "axios";
 import {FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
 
+
+/**
+ * This is a dropdown button with a menu that contains all the towns where there are properties available for booking
+ */
 type configs = {
     towns:string[]
 }
